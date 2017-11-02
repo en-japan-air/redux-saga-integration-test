@@ -1,0 +1,45 @@
+{
+    "extends": [
+      "airbnb-base",
+      "plugin:redux-saga/recommended"
+    ],
+    "env": {
+      "node": true,
+      "jest": true,
+      "es6": true
+    },
+    "plugins": [
+      "redux-saga"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 6,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": false
+      }
+    },
+    "rules": {
+      "arrow-parens": [
+        "error",
+        "always"
+      ],
+      "arrow-body-style": [
+        2,
+        "as-needed"
+      ],
+      "comma-dangle": [
+        2,
+        "always-multiline"
+      ],
+      "indent": [
+        2,
+        2,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "function-paren-newline": ["error", "consistent"],
+      "no-use-before-define": 0,
+      "require-yield": 0
+    }
+  }

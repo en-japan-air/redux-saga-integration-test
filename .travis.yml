@@ -1,0 +1,15 @@
+language: node_js
+
+node_js:
+  - 6
+
+script: npm run test:coverage:ci
+
+install:
+  - npm install
+
+cache:
+  directories:
+    - node_modules
+    - $(npm config get prefix)/bin
+    - $(npm config get prefix)/lib/node_modules

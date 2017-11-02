@@ -1,0 +1,64 @@
+{
+  "name": "redux-saga-integration-test",
+  "version": "0.0.0",
+  "description": "Utilities to test sagas, reducers and selectors in integration",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/en-japan-air/redux-saga-integration-test.git"
+  },
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "lint": "eslint --ignore-path .gitignore .",
+    "test:clean": "rimraf ./coverage",
+    "pretest": "npm run test:clean",
+    "preproduction": "git checkout master && git pull",
+    "production": "np --yolo",
+    "posttest": "npm run lint",
+    "test": "cross-env NODE_ENV=test jest --bail",
+    "test:coverage": "cross-env NODE_ENV=test jest --bail --coverage",
+    "test:coverage:ci": "cross-env NODE_ENV=test jest --bail --coverage --maxWorkers 2",
+    "test:watch": "cross-env NODE_ENV=test jest --watchAll"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "peerDependencies": {
+    "immutable": "3.x",
+    "redux": "3.x",
+    "redux-immutable": "4.x",
+    "redux-saga": "0.16.x"
+  },
+  "devDependencies": {
+    "cross-env": "5.1.1",
+    "eslint": "4.10.0",
+    "eslint-config-airbnb-base": "12.1.0",
+    "eslint-plugin-redux-saga": "0.6.0",
+    "immutable": "3.8.2",
+    "jest-cli": "21.2.1",
+    "np": "2.16.1",
+    "pre-commit": "1.2.2",
+    "redux": "3.7.2",
+    "redux-immutable": "4.0.0",
+    "redux-saga": "0.16.0",
+    "reselect": "3.0.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}",
+      "**/*.test.{js,jsx}"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "statements": 80,
+        "branches": 65,
+        "functions": 80,
+        "lines": 80
+      }
+    },
+    "moduleDirectories": [
+      "node_modules"
+    ],
+    "testRegex": "tests/.*\\.test\\.js$"
+  }
+}
