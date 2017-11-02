@@ -148,7 +148,7 @@ A better approach is to test everything together in integration. (My opinion)
 
 # Usage
 
-** MyComponent/tests/integration.test.js**
+**MyComponent/tests/integration.test.js**
 
 ```js
 import { wire, mockedEffects } from 'redux-saga-integration-test';
