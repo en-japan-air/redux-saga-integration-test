@@ -193,6 +193,59 @@ describe('component integration', () => {
 });
 ```
 
+You can also test that certain actions have been dispatched
+
+```js
+import { wire, mockedEffects } from 'redux-saga-integration-test';
+import { takeEvery, put } from 'redux-saga/effects';
+
+jest.mock('redux-saga/effects', () => mockedEffects);
+
+const LOAD = 'LOAD_ACTION';
+
+/* Actions */
+function putAction() {
+  return { type: 'PUT_ACTION' };
+}
+
+/* Sagas */
+function* putSomething(action) {
+  yield put(putAction(action.value));
+}
+function* sagas() {
+  yield takeEvery(LOAD, putSomething);
+}
+
+describe('put actions', () => {
+  it('dispatches the expected action', () => {
+    const { dispatch } = wire({
+      sagas,
+    });
+    const action = { type: LOAD, value: 1 };
+
+    return dispatch(action).then(() => {
+      expect(put).toHaveBeenCalledWith(putAction(1));
+    });
+  });
+
+  it('calls the expected saga', () => {
+    const mockPutSomething = jest.fn();
+    const { dispatch } = wire({
+      sagas,
+      mocks: [
+        [putSomething, mockPutSomething],
+      ],
+    });
+    const action = { type: LOAD, value: 1 };
+
+    return dispatch(action).then(() => {
+      expect(mockPutSomething).toHaveBeenCalledWith(action);
+    });
+  });
+});
+```
+
+
 ## API
 
 ### mockedEffects
@@ -204,7 +257,9 @@ import { mockedEffects } from 'redux-saga-integration-test';
 jest.mock('redux-saga/effects', () => mockedEffects);
 ```
 
-Allow `redux-saga-integration-test` to intercept your calls to `redux-saga` and mock the functions with side effects.
+Allows `redux-saga-integration-test` to intercept your calls to `redux-saga` and mock the functions with side effects.
+
+After calling `jest.mock`, `import { put } from 'redux-saga/effects';` returns a jest mock function that you can use to assert things like `expect(put).toHaveBeenCalledWith(action);`;
 
 
 ### wire
