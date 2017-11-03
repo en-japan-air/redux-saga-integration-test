@@ -17,8 +17,8 @@ function createMockedEffects() {
     _getStore: getStore,
     call: jest.fn(mockCall),
     take: effects.take,
-    takeLatest: effects.takeLatest,
-    takeEvery: effects.takeEvery,
+    takeLatest: jest.fn(createMockTake(effects.takeLatest)),
+    takeEvery: jest.fn(createMockTake(effects.takeEvery)),
     spawn: effects.spawn,
     cancel: effects.cancel,
     put: jest.fn(mockPut),
@@ -57,6 +57,10 @@ function createMockedEffects() {
       workingStore.dispatch(action);
     }
   }
+
+  function createMockTake(original) {
+    return (type, fn, ...args) => original(type, mockCall.bind(null, fn), ...args);
+  }
 }
 
 function dispatch(...args) {
@@ -85,7 +89,7 @@ function createMockedStore(reducer, sagas, initialStore, mocks) {
 function wire({
   reducer = (state) => state,
   sagas = [],
-  component,
+  component = {},
   params,
   ownProps = defaultOwnProps,
   mocks,
