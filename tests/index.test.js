@@ -173,6 +173,28 @@ describe('wire components', () => {
       expect(logger.log).toHaveBeenCalledWith('do it');
     });
   });
+
+  it('mocks nested objects in mapDispatchToProps', () => {
+    const mockedApi = jest.fn(() => Promise.resolve());
+    const { functions } = wire({
+      sagas: [sagas],
+      component: {
+        mapDispatchToProps: (dispatch) => ({
+          actions: {
+            load: (url) => dispatch(load(url)),
+          }
+        }),
+      },
+      mocks: [
+        [fetch, mockedApi],
+      ],
+    });
+
+    return functions.actions.load('test url').then((props) => {
+      expect(mockedApi).toHaveBeenCalledWith('test url');
+      expect(logger.log).toHaveBeenCalledWith('do it');
+    });
+  });
 });
 
 describe('structuredMocks', () => {
