@@ -127,10 +127,10 @@ function connectStateAndProps(mapStateToProps, mapDispatchToProps, params, ownPr
 function asPromise(actions, props) {
   return Object.keys(actions).reduce(
     (host, key) => Object.assign(host, {
-      [key]: (...args) => {
+      [key]: typeof actions[key] === 'function' ? (...args) => {
         actions[key](...args);
         return later(props);
-      },
+      } : asPromise(actions[key], props),
     }), {}
   );
 }
