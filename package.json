@@ -1,6 +1,6 @@
 {
   "name": "redux-saga-integration-test",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Utilities to test sagas, reducers and selectors in integration",
   "repository": {
     "type": "git",
