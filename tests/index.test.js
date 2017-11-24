@@ -182,7 +182,7 @@ describe('wire components', () => {
         mapDispatchToProps: (dispatch) => ({
           actions: {
             load: (url) => dispatch(load(url)),
-          }
+          },
         }),
       },
       mocks: [
@@ -190,9 +190,29 @@ describe('wire components', () => {
       ],
     });
 
-    return functions.actions.load('test url').then((props) => {
+    return functions.actions.load('test url').then(() => {
       expect(mockedApi).toHaveBeenCalledWith('test url');
       expect(logger.log).toHaveBeenCalledWith('do it');
+    });
+  });
+
+  it('allows to access props in the selector', () => {
+    const { props } = wire({
+      component: {
+        mapStateToProps: createStructuredSelector({
+          fromProps: createSelector(
+            (state, ownProps) => ownProps.value,
+            (value) => value
+          ),
+        }),
+      },
+      reducer,
+      ownProps: {
+        value: 12,
+      },
+    });
+    expect(props()).toEqual({
+      fromProps: 12,
     });
   });
 });
