@@ -24,6 +24,7 @@ function createMockedEffects() {
     put: jest.fn(mockPut),
     race: effects.race,
     select: effects.select,
+    fork: effects.fork,
   };
 
   function setHooks(store, mockFunctions = []) {

@@ -9,7 +9,7 @@
   "license": "MIT",
   "main": "src/index.js",
   "scripts": {
-    "lint": "eslint --ignore-path .gitignore .",
+    "lint": "eslint --fix --ignore-path .gitignore .",
     "test:clean": "rimraf ./coverage",
     "pretest": "npm run test:clean",
     "preproduction": "git checkout master && git pull",
@@ -30,14 +30,14 @@
     "redux-saga": "0.16.x"
   },
   "devDependencies": {
-    "cross-env": "5.1.1",
-    "eslint": "4.11.0",
+    "cross-env": "5.1.4",
+    "eslint": "4.19.1",
     "eslint-config-airbnb-base": "12.1.0",
-    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-import": "^2.9.0",
     "eslint-plugin-redux-saga": "0.6.0",
     "immutable": "3.8.2",
-    "jest-cli": "21.2.1",
-    "np": "2.17.0",
+    "jest-cli": "22.4.3",
+    "np": "2.20.1",
     "pre-commit": "1.2.2",
     "redux": "3.7.2",
     "redux-immutable": "4.0.0",
