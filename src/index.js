@@ -12,20 +12,14 @@ function createMockedEffects() {
   const mocks = new Map();
   let workingStore;
 
-  return {
+  return Object.assign({}, effects, {
     _setHooks: setHooks,
     _getStore: getStore,
     call: jest.fn(mockCall),
-    take: effects.take,
     takeLatest: jest.fn(createMockTake(effects.takeLatest)),
     takeEvery: jest.fn(createMockTake(effects.takeEvery)),
-    spawn: effects.spawn,
-    cancel: effects.cancel,
     put: jest.fn(mockPut),
-    race: effects.race,
-    select: effects.select,
-    fork: effects.fork,
-  };
+  });
 
   function setHooks(store, mockFunctions = []) {
     workingStore = store;
