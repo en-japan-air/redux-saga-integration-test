@@ -66,8 +66,14 @@ function* doSomething(action) {
   yield call(fetch, action.url);
   yield put(complete({ result: 5 }));
 }
+function* doSomethingWithArgs(one, two) {
+  yield call(logger.log, one + two);
+}
 function* sagas() {
   yield takeEvery(LOAD, doSomething);
+}
+function* sagaWithArgs(one, two) {
+  yield takeEvery(LOAD, doSomethingWithArgs, one, two);
 }
 
 
@@ -213,6 +219,16 @@ describe('wire components', () => {
     });
     expect(props()).toEqual({
       fromProps: 12,
+    });
+  });
+
+  it('allows to pass args to injected saga', () => {
+    const { dispatch } = wire({
+      sagas: [{ fn: sagaWithArgs, args: [1, 2] }],
+    });
+
+    return dispatch(load('value')).then(() => {
+      expect(logger.log).toHaveBeenCalledWith(3);
     });
   });
 });
