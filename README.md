@@ -311,3 +311,12 @@ The format of `mocks` is
   [anotherFunction, anotherMock],
 ]
 ```
+
+#### sagas
+
+The property `sagas` can be either
+
+* an array of function generators
+* an array of objects `{ fn: [Function generator], args: [Array of arguments] }`
+
+When using array of objects the `args` will be passed to `sagaMiddleware` when the saga is registered

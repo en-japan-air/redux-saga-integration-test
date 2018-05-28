@@ -76,7 +76,10 @@ function createMockedStore(reducer, sagas, initialStore, mocks) {
     fromJS(initialStore),
     applyMiddleware(sagaMiddleware)
   );
-  sagas.forEach((saga) => sagaMiddleware.run(saga));
+  sagas.forEach((saga) => {
+    if (saga.args && saga.fn) sagaMiddleware.run(saga.fn, ...saga.args);
+    else sagaMiddleware.run(saga);
+  });
   mockedEffects._setHooks(store, mocks); // eslint-disable-line no-underscore-dangle
   return store;
 }
