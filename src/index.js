@@ -106,9 +106,9 @@ function later(fn) {
 
 function connectStateAndProps(mapStateToProps, mapDispatchToProps, params, ownProps) {
   const initialProps = Object.assign({}, ownProps, { params: params || ownProps.params });
-  const propsGetter = mapStateToProps ?
-    () => mapStateToProps(mockedEffects._getStore('get props').getState(), initialProps) : // eslint-disable-line no-underscore-dangle
-    () => {};
+  const propsGetter = mapStateToProps
+    ? () => mapStateToProps(mockedEffects._getStore('get props').getState(), initialProps) // eslint-disable-line no-underscore-dangle
+    : () => {};
 
   return {
     functions: mapDispatchToProps ? asPromise(

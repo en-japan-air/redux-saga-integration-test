@@ -1,6 +1,7 @@
 /* eslint-disable redux-saga/yield-effects */
 const { wire } = require('../src/index');
 // Library
+// eslint-disable-next-line import/order
 const { put, takeLatest, takeEvery } = require('redux-saga/effects');
 
 /* Constants */
