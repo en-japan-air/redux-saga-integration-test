@@ -1,3 +1,4 @@
+// eslint-disable-next-line import/order
 const { wire, structuredMocks } = require('../src/index');
 // Library
 const { fromJS } = require('immutable');
